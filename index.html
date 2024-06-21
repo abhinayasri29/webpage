@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        h2 {
+            color: #555;
+        }
+        #fileInput {
+            display: block;
+            margin-bottom: 10px;
+        }
+        #uploadButton {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        #uploadButton:hover {
+            background-color: #0056b3;
+        }
+        #fileContent {
+            white-space: pre-wrap;
+            background-color: #fff;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Upload and Display File</h2>
+    <input type="file" id="fileInput">
+    <button id="uploadButton">Upload</button>
+    <pre id="fileContent"></pre>
+
+    <script>
+        document.getElementById('uploadButton').addEventListener('click', () => {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert('Please select a file.');
+                return;
+            }
+
+            const reader = new FileReader();
+
+            reader.onload = (event) => {
+                document.getElementById('fileContent').textContent = event.target.result;
+            };
+
+            reader.onerror = () => {
+                alert('Error reading file');
+            };
+
+            reader.readAsText(file);
+        });
+    </script>
+</body>
+</html>
